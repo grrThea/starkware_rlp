@@ -8,7 +8,7 @@ from starkware.cairo.common.hash import hash2
 func main{output_ptr, pedersen_ptr: HashBuiltin*}() {
     // The following line implicitly updates the pedersen_ptr
     // reference to pedersen_ptr + 3.
-    let (res) = hash2{hash_ptr=pedersen_ptr}(1, 2);
+    let (res) = hash2{hash_ptr=pedersen_ptr}(3, 5);
     assert [output_ptr] = res;
 
     // Manually update the output builtin pointer.
