@@ -12,7 +12,7 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     local block_rlp_len_bytes;
     local block_rlp_len;
     let (block_rlp: felt*) = alloc();
-    local hard_rlp;
+    let (hard_rlp: felt*) = alloc();
     // %{
     //     from web3 import Web3
     //     from mocks.blocks import mocked_blocks
