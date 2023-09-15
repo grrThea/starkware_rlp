@@ -1,4 +1,3 @@
-// %builtins output pedersen
 
 // from starkware.cairo.common.cairo_builtins import HashBuiltin
 // from starkware.cairo.common.hash import hash2
@@ -18,6 +17,9 @@
 //     // output_ptr and pedersen_ptr will be implicitly returned.
 //     return ();
 // }
+
+%builtins output pedersen
+
 
 from lib.types import IntsSequence
 from lib.blockheader_rlp_extractor import (
