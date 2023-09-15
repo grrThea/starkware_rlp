@@ -27,8 +27,13 @@ from lib.blockheader_rlp_extractor import (
 
 from starkware.cairo.common.alloc import alloc
 
+// func test_decode_receipts_root(output_ptr) {
+//     test_decode_receipts_root();
+//     assert [output_ptr] = res;
+//     let output_ptr = output_ptr + 1;
+// }
 
-func test_decode_receipts_root{range_check_ptr}() -> () {
+func main{output_ptr}() -> () {
     alloc_locals;
     local block_rlp_len_bytes;
     local block_rlp_len;
@@ -58,6 +63,8 @@ func test_decode_receipts_root{range_check_ptr}() -> () {
         formatted_hash = '0x' + ''.join(l)
         assert Web3.toBytes(hexstr=formatted_hash) == block["receiptsRoot"]
     %}
+    assert [output_ptr] = receipts_root;
+    let output_ptr = output_ptr + 1;
     return ();
 }
 
