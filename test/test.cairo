@@ -18,7 +18,7 @@
 //     return ();
 // }
 
-%builtins output range_check_ptr
+%builtins output range_check
 
 
 from lib.types import IntsSequence
