@@ -1,3 +1,13 @@
+%builtins output range_check
+
+from starkware.cairo.common.alloc import alloc
+from lib.types import IntsSequence
+from lib.blockheader_rlp_extractor import (
+    decode_receipts_root,
+    Keccak256Hash,
+)
+
+
 func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     alloc_locals;
     local block_rlp_len_bytes;
