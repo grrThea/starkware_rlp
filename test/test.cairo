@@ -7,7 +7,6 @@ from lib.blockheader_rlp_extractor import (
     Keccak256Hash,
 )
 
-
 func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     alloc_locals;
     local block_rlp_len_bytes;
