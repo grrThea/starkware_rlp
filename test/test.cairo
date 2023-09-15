@@ -1,5 +1,7 @@
 %builtins output pedersen range_check
 
+from starkware.cairo.common.cairo_builtins import HashBuiltin
+
 // The output of the AMM program.
 struct AmmBatchOutput {
     // The balances of the AMM before applying the batch.
