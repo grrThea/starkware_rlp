@@ -1,48 +1,9 @@
-
-// from starkware.cairo.common.cairo_builtins import HashBuiltin
-// from starkware.cairo.common.hash import hash2
-// from lib.types import Keccak256Hash, IntsSequence, RLPItem
-
-// // Implicit arguments: addresses of the output and pedersen
-// // builtins.
-// func main{output_ptr, pedersen_ptr: HashBuiltin*}() {
-//     // The following line implicitly updates the pedersen_ptr
-//     // reference to pedersen_ptr + 3.
-//     let (res) = hash2{hash_ptr=pedersen_ptr}(3, 5);
-//     assert [output_ptr] = res;
-
-//     // Manually update the output builtin pointer.
-//     let output_ptr = output_ptr + 1;
-
-//     // output_ptr and pedersen_ptr will be implicitly returned.
-//     return ();
-// }
-
-%builtins output range_check
-
-
-from lib.types import IntsSequence
-from lib.blockheader_rlp_extractor import (
-    decode_receipts_root,
-    Keccak256Hash,
-)
-
-from starkware.cairo.common.alloc import alloc
-
-// func test_decode_receipts_root(output_ptr) {
-//     test_decode_receipts_root();
-//     assert [output_ptr] = res;
-//     let output_ptr = output_ptr + 1;
-// }
-
 func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     alloc_locals;
     local block_rlp_len_bytes;
     local block_rlp_len;
     let (block_rlp: felt*) = alloc();
     %{
-        print("okok");
-
         from web3 import Web3
         from mocks.blocks import mocked_blocks
         from utils.block_header import build_block_header
