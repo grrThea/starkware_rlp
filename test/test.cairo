@@ -2,6 +2,7 @@
 
 from starkware.cairo.common.cairo_builtins import HashBuiltin
 from starkware.cairo.common.hash import hash2
+from lib.types import IntsSequence
 
 // Implicit arguments: addresses of the output and pedersen
 // builtins.
