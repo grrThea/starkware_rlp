@@ -43,10 +43,10 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     %{
         print("okok");
 
+        from web3 import Web3
         from mocks.blocks import mocked_blocks
         from utils.block_header import build_block_header
         from utils.types import Data
-        from web3 import Web3
 
         block = mocked_blocks[0]
         block_header = build_block_header(block)
