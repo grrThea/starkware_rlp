@@ -33,7 +33,7 @@ from starkware.cairo.common.alloc import alloc
 //     let output_ptr = output_ptr + 1;
 // }
 
-func main{output_ptr: Keccak256Hash* , range_check_ptr}() -> () {
+func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     alloc_locals;
     local block_rlp_len_bytes;
     local block_rlp_len;
