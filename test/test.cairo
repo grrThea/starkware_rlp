@@ -41,6 +41,8 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     local block_rlp_len;
     let (block_rlp: felt*) = alloc();
     %{
+        print("okok");
+
         from mocks.blocks import mocked_blocks
         from utils.block_header import build_block_header
         from utils.types import Data
@@ -60,6 +62,7 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
         block_rlp_len_bytes, block_rlp_len, block_rlp
     );
     %{
+        print("hello world");
         extracted = [ids.receipts_root.word_1, ids.receipts_root.word_2, ids.receipts_root.word_3, ids.receipts_root.word_4]
         l = list(map(lambda x: str(hex(x)[2:]), extracted))
         formatted_hash = '0x' + ''.join(l)
