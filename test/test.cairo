@@ -25,6 +25,9 @@ from lib.blockheader_rlp_extractor import (
     Keccak256Hash,
 )
 
+from starkware.cairo.common.alloc import alloc
+
+
 func test_decode_receipts_root{range_check_ptr}() -> () {
     alloc_locals;
     local block_rlp_len_bytes;
