@@ -78,15 +78,15 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     assert input.element_size_words = block_rlp_len;
     assert input.element_size_bytes = block_rlp_len_bytes;
 
-    local new_account: Account;
-    assert new_account.public_key = 111;
-    assert new_account.token_a_balance = 222;
-    assert new_account.token_b_balance = 333;
+    local new_account: Account
+    assert new_account.public_key = 1
+    assert new_account.token_a_balance = 2
+    assert new_account.token_b_balance = 3
 
     %{ print("inputttt~") %}
 
     %{ print(new_account) %}
 
-    // let (local receipts_root: Keccak256Hash) = decode_receipts_root(input);
-    // return (receipts_root,);
+    let (local receipts_root: Keccak256Hash) = decode_receipts_root(input);
+    return (receipts_root,);
 }
