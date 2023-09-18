@@ -136,7 +136,7 @@ func extract_data_rec{range_check_ptr}(
     if (current_index == full_words + start_word) {
         return (acc_len,);
     }
-
+    %{ print(rlp) }%
     let (local left_part) = bitshift_left(rlp.element[current_index], left_shift * 8);
     local right_part;
     if (current_index == rlp.element_size_words - 2) {
