@@ -62,10 +62,9 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     return ();
 }
 
-struct Account {
-    public_key: felt,
-    token_a_balance: felt,
-    token_b_balance: felt,
+struct Location {
+    row: felt,
+    col: felt,
 }
 
 func helper_test_decode_receipts_root{range_check_ptr}(
@@ -78,14 +77,12 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     assert input.element_size_words = block_rlp_len;
     assert input.element_size_bytes = block_rlp_len_bytes;
     
-    local new_account: Account = alloc();
-    assert new_account.public_key = 1;
-    assert new_account.token_a_balance = 2;
-    assert new_account.token_b_balance = 3;
+
+    local loc_tuple: Location = Location(row=0, col=2);
 
     %{ print("inputttt~") %}
 
-    %{ print(new_account) %}
+    %{ print(loc_tuple) %}
 
     let (local receipts_root: Keccak256Hash) = decode_receipts_root(input);
     return (receipts_root,);
