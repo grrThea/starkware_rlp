@@ -12,9 +12,11 @@ block_rlp_formatted = Data.from_bytes(block_rlp).to_ints()
 block_rlp_len_bytes = block_rlp_formatted.length
 block_rlp_len = len(block_rlp_formatted.values)
 
-print(block_rlp_len_bytes)
-print(block_rlp_len)
-print(block_rlp)
+# print(block_rlp_len_bytes)
+# print(block_rlp_len)
+# print(block_rlp)
+
+print(block_rlp_formatted)
 
 
 # segments.write_arg(block_rlp, block_rlp_formatted.values)
