@@ -15,7 +15,7 @@ func extract_data{range_check_ptr}(start_pos: felt, size: felt, rlp: IntsSequenc
     local rlp_print: IntsSequence;
     %{ 
         print("rlp");
-        ids.rlp_print = rlp;
+        ids.rlp_print = rlp.element;
         print(ids.rlp_print);
     %}
     let (start_word, left_shift) = unsigned_div_rem(start_pos, 8);
