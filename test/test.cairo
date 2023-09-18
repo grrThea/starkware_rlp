@@ -78,7 +78,7 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     assert input.element_size_words = block_rlp_len;
     assert input.element_size_bytes = block_rlp_len_bytes;
     
-    let (new_account: Account) = alloc();
+    local new_account: Account = alloc();
     assert new_account.public_key = 1;
     assert new_account.token_a_balance = 2;
     assert new_account.token_b_balance = 3;
