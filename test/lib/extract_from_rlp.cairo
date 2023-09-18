@@ -12,6 +12,11 @@ func extract_data{range_check_ptr}(start_pos: felt, size: felt, rlp: IntsSequenc
     res: IntsSequence
 ) {
     alloc_locals;
+    let rlp_print = rlp;
+    %{ 
+        print("rlp");
+        print(rlp);
+    %}
     let (start_word, left_shift) = unsigned_div_rem(start_pos, 8);
     let (end_word_tmp, end_pos_tmp) = unsigned_div_rem(start_pos + size, 8);
 
@@ -29,7 +34,6 @@ func extract_data{range_check_ptr}(start_pos: felt, size: felt, rlp: IntsSequenc
         end_word = end_word_tmp;
     }
 
-    if (rlp.element_size_bytes) {
         let (_, last_rlp_word_len_tmp) = unsigned_div_rem(rlp.element_size_bytes, 8);
         local last_rlp_word_len;
         if (last_rlp_word_len_tmp == 0) {
@@ -118,7 +122,6 @@ func extract_data{range_check_ptr}(start_pos: felt, size: felt, rlp: IntsSequenc
             result_words_len = new_words_len + 1;
             tempvar range_check_ptr = range_check_ptr;
         }
-    }
 
     local result: IntsSequence = IntsSequence(new_words, result_words_len, size);
     return (result,);
