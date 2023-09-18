@@ -29,91 +29,95 @@ func extract_data{range_check_ptr}(start_pos: felt, size: felt, rlp: IntsSequenc
         end_word = end_word_tmp;
     }
 
-    let (_, last_rlp_word_len_tmp) = unsigned_div_rem(rlp.element_size_bytes, 8);
-    local last_rlp_word_len;
-    if (last_rlp_word_len_tmp == 0) {
-        last_rlp_word_len = 8;
-    } else {
-        last_rlp_word_len = last_rlp_word_len_tmp;
-    }
+    if (rlp.element_size_bytes) {
+        let (_, last_rlp_word_len_tmp) = unsigned_div_rem(rlp.element_size_bytes, 8);
+        local last_rlp_word_len;
+        if (last_rlp_word_len_tmp == 0) {
+            last_rlp_word_len = 8;
+        } else {
+            last_rlp_word_len = last_rlp_word_len_tmp;
+        }
+    
+    
 
-    local right_shift = 8 - left_shift;
-    let last_word_right_shift = last_rlp_word_len - left_shift;
+        local right_shift = 8 - left_shift;
+        let last_word_right_shift = last_rlp_word_len - left_shift;
 
-    let (local new_words: felt*) = alloc();
+        let (local new_words: felt*) = alloc();
 
-    let (local new_words_len) = extract_data_rec(
-        start_word=start_word,
-        full_words=full_words,
-        left_shift=left_shift,
-        right_shift=right_shift,
-        last_word_right_shift=last_word_right_shift,
-        rlp=rlp,
-        acc=new_words,
-        acc_len=0,
-        current_index=start_word,
-    );
+        let (local new_words_len) = extract_data_rec(
+            start_word=start_word,
+            full_words=full_words,
+            left_shift=left_shift,
+            right_shift=right_shift,
+            last_word_right_shift=last_word_right_shift,
+            rlp=rlp,
+            acc=new_words,
+            acc_len=0,
+            current_index=start_word,
+        );
 
-    local result_words_len;
+        local result_words_len;
 
-    if (remainder == 0) {
-        result_words_len = new_words_len;
-        tempvar range_check_ptr = range_check_ptr;
-    } else {
-        local left_shift_above_8_bytes = is_le(8 + 1, remainder + left_shift);
-        if (left_shift_above_8_bytes == 1) {
-            let (local left_part) = bitshift_left(rlp.element[end_word - 1], left_shift * 8);
+        if (remainder == 0) {
+            result_words_len = new_words_len;
+            tempvar range_check_ptr = range_check_ptr;
+        } else {
+            local left_shift_above_8_bytes = is_le(8 + 1, remainder + left_shift);
+            if (left_shift_above_8_bytes == 1) {
+                let (local left_part) = bitshift_left(rlp.element[end_word - 1], left_shift * 8);
 
-            local right_part;
-            if (end_word == rlp.element_size_words - 1) {
-                local is_last_word_right_shift_negative = is_le(last_word_right_shift + 8, 7);
-                if (is_last_word_right_shift_negative == 1) {
-                    let (local right_part_tmp) = bitshift_left(
-                        rlp.element[end_word], (-8) * last_word_right_shift
-                    );
-                    right_part = right_part_tmp;
-                    tempvar range_check_ptr = range_check_ptr;
+                local right_part;
+                if (end_word == rlp.element_size_words - 1) {
+                    local is_last_word_right_shift_negative = is_le(last_word_right_shift + 8, 7);
+                    if (is_last_word_right_shift_negative == 1) {
+                        let (local right_part_tmp) = bitshift_left(
+                            rlp.element[end_word], (-8) * last_word_right_shift
+                        );
+                        right_part = right_part_tmp;
+                        tempvar range_check_ptr = range_check_ptr;
+                    } else {
+                        let (local right_part_tmp) = bitshift_right(
+                            rlp.element[end_word], 8 * last_word_right_shift
+                        );
+                        right_part = right_part_tmp;
+                        tempvar range_check_ptr = range_check_ptr;
+                    }
                 } else {
-                    let (local right_part_tmp) = bitshift_right(
-                        rlp.element[end_word], 8 * last_word_right_shift
-                    );
+                    let (local right_part_tmp) = bitshift_right(rlp.element[end_word], 8 * right_shift);
                     right_part = right_part_tmp;
                     tempvar range_check_ptr = range_check_ptr;
                 }
+
+                local final_word = left_part + right_part;
+                let (local final_word_shifted) = bitshift_right(final_word, 8 * (8 - remainder));
+
+                let (local divider: felt) = pow(2, remainder * 8);
+                let (_, final_word_masked) = unsigned_div_rem(final_word_shifted, divider);
+                assert new_words[new_words_len] = final_word_masked;
             } else {
-                let (local right_part_tmp) = bitshift_right(rlp.element[end_word], 8 * right_shift);
-                right_part = right_part_tmp;
-                tempvar range_check_ptr = range_check_ptr;
+                local final_word_shifted;
+                if (end_word == rlp.element_size_words - 1) {
+                    let (local final_word_shifted_tmp) = bitshift_right(
+                        rlp.element[end_word], 8 * (last_rlp_word_len - end_pos)
+                    );
+                    final_word_shifted = final_word_shifted_tmp;
+                    tempvar range_check_ptr = range_check_ptr;
+                } else {
+                    let (local final_word_shifted_tmp) = bitshift_right(
+                        rlp.element[end_word], 8 * (8 - end_pos)
+                    );
+                    final_word_shifted = final_word_shifted_tmp;
+                    tempvar range_check_ptr = range_check_ptr;
+                }
+
+                let (local divider: felt) = pow(2, 8 * (end_pos - left_shift));
+                let (_, final_word_masked) = unsigned_div_rem(final_word_shifted, divider);
+                assert new_words[new_words_len] = final_word_masked;
             }
-
-            local final_word = left_part + right_part;
-            let (local final_word_shifted) = bitshift_right(final_word, 8 * (8 - remainder));
-
-            let (local divider: felt) = pow(2, remainder * 8);
-            let (_, final_word_masked) = unsigned_div_rem(final_word_shifted, divider);
-            assert new_words[new_words_len] = final_word_masked;
-        } else {
-            local final_word_shifted;
-            if (end_word == rlp.element_size_words - 1) {
-                let (local final_word_shifted_tmp) = bitshift_right(
-                    rlp.element[end_word], 8 * (last_rlp_word_len - end_pos)
-                );
-                final_word_shifted = final_word_shifted_tmp;
-                tempvar range_check_ptr = range_check_ptr;
-            } else {
-                let (local final_word_shifted_tmp) = bitshift_right(
-                    rlp.element[end_word], 8 * (8 - end_pos)
-                );
-                final_word_shifted = final_word_shifted_tmp;
-                tempvar range_check_ptr = range_check_ptr;
-            }
-
-            let (local divider: felt) = pow(2, 8 * (end_pos - left_shift));
-            let (_, final_word_masked) = unsigned_div_rem(final_word_shifted, divider);
-            assert new_words[new_words_len] = final_word_masked;
+            result_words_len = new_words_len + 1;
+            tempvar range_check_ptr = range_check_ptr;
         }
-        result_words_len = new_words_len + 1;
-        tempvar range_check_ptr = range_check_ptr;
     }
 
     local result: IntsSequence = IntsSequence(new_words, result_words_len, size);
