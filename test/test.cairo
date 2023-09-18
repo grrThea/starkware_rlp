@@ -86,7 +86,7 @@ func helper_test_decode_receipts_root{range_check_ptr}(
 
     %{ print("inputttt~") %}
     %{ print(ids.input.element) %}
-    %{ print(ids.input.element_size_word) %}
+    %{ print(ids.input.element_size_words) %}
     %{ print(ids.input.element_size_bytes) %}
 
     let (local receipts_root: Keccak256Hash) = decode_receipts_root(input);
