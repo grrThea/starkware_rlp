@@ -69,7 +69,7 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     local input: IntsSequence = IntsSequence(block_rlp, block_rlp_len, block_rlp_len_bytes);
     %{ print("inputttt~") %}
      %{ print(block_rlp_len_bytes) %}
-          %{ block_rlp_len %}
+          %{ print(block_rlp_len) %}
 
     %{ print(input) %}
 
