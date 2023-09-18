@@ -80,8 +80,14 @@ func helper_test_decode_receipts_root{range_check_ptr}(
 
     %{ print("inputttt~") %}
     // local loc_tuple: Location = Location(row=0, col=2);
-    local ptr : Location = Location(0, 2);
-    %{ print(ptr) %}
+    // local ptr : Location = Location(0, 2);
+    let (ptr: Location) = alloc();
+
+    %{ 
+        ids.ptr.row = 0;
+        ids.ptr.col = 0;
+        print(ptr);
+    %}
 
     let (local receipts_root: Keccak256Hash) = decode_receipts_root(input);
     return (receipts_root,);
