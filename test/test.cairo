@@ -11,8 +11,8 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     alloc_locals;
     // local block_rlp_len_bytes;
     // local block_rlp_len;
-    let (block_rlp_len_bytes): felt = alloc();
-    let (block_rlp_len): felt = alloc();
+    let (block_rlp_len_bytes: felt) = alloc();
+    let (block_rlp_len: felt) = alloc();
     let (block_rlp: felt*) = alloc();
     let (hard_rlp: felt*) = alloc();
     // %{
