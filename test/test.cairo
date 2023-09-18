@@ -56,8 +56,12 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     alloc_locals;
     local input: IntsSequence = IntsSequence(block_rlp, block_rlp_len, block_rlp_len_bytes);
     %{ print("inputttt~") %}
-
+    %{ print(block_rlp) %}
+    %{ print(block_rlp_len) %}
+    %{ print(block_rlp_len_bytes) %}
     %{ print(input) %}
+        %{ print(IntsSequence) %}
+
     let (local receipts_root: Keccak256Hash) = decode_receipts_root(input);
     return (receipts_root,);
 }
