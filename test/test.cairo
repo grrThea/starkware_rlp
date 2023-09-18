@@ -17,7 +17,7 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
     let (hard_rlp: felt*) = alloc();
     %{
         from web3 import Web3
-        from mocks.blocks import mocked_blocks
+        from blocks import mocked_blocks
         from utils.block_header import build_block_header
         from utils.types import Data
 
