@@ -84,8 +84,6 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     assert new_account.token_b_balance = 333;
 
     %{ print("inputttt~") %}
-    // %{ print(block_rlp_len_bytes) %}
-    // %{ print(block_rlp_len) %}
 
     %{ print(new_account) %}
 
