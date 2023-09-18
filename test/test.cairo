@@ -73,9 +73,9 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     alloc_locals;
     local ptr: Location;
     local input: IntsSequence;
-    assert ids.input.element = block_rlp;
-    assert ids.input.element_size_words = block_rlp_len;
-    assert ids.input.element_size_bytes = block_rlp_len_bytes;
+    assert input.element = block_rlp;
+    assert input.element_size_words = block_rlp_len;
+    assert input.element_size_bytes = block_rlp_len_bytes;
     // assert input.element = block_rlp;
     // assert input.element_size_words = block_rlp_len;
     // assert input.element_size_bytes = block_rlp_len_bytes;
