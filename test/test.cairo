@@ -83,7 +83,7 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     let ptr: Location* = cast([fp], Location*);
     assert ptr.row = 0;
     assert ptr.col = 2;
-    %{ print(ptr) %}
+    %{ print(ptr.row) %}
 
     let (local receipts_root: Keccak256Hash) = decode_receipts_root(input);
     return (receipts_root,);
