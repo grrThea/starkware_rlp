@@ -34,6 +34,8 @@ func main{output_ptr: Keccak256Hash* , range_check_ptr}() {
         ids.block_rlp_len_bytes = 539
         ids.block_rlp_len = 69
         segments.write_arg(ids.block_rlp, [17942930940933183180, 10630688908008413652, 12661074544460729427, 864726895158924156, 16160421152376605773, 16780068465932993973, 7473385843023090245, 1987365566732607810, 18248819419131476918, 1984847897903778775, 11250872762094254827, 2927235116766469468, 12571860411242042658, 16186457246499692536, 5430745597336979773, 4560371398778244901, 4180223512850766399, 11269249778585820866, 17452780617349289056, 17686478862929260379, 11152982928411641007, 17273895561864136137, 6175259058000229345, 15391611023919743232, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9545095912481861326, 10989761733450733549, 14953183967168469464, 9439837342822524276, 7532384104041296183, 3328588300275316088, 11561634209445742650, 1195534606310635284, 13885345432711804137, 13993844412326043916, 254522925965248994, 13959192])
+        print(block_rlp_len)
+        print(block_rlp_len_bytes)
     %} 
     let (receipts_root) = helper_test_decode_receipts_root(
         block_rlp_len_bytes, block_rlp_len, block_rlp
@@ -65,8 +67,6 @@ func helper_test_decode_receipts_root{range_check_ptr}(
     block_rlp_len_bytes: felt, block_rlp_len: felt, block_rlp: felt*
 ) -> (res: Keccak256Hash) {
     %{ print(block_rlp) %}
-    %{ print(block_rlp_len) %}
-    %{ print(block_rlp_len_bytes) %}
     alloc_locals;
     local input: IntsSequence = IntsSequence(block_rlp, block_rlp_len, block_rlp_len_bytes);
     %{ print("inputttt~") %}
