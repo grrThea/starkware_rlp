@@ -14,7 +14,7 @@ block_rlp_len = len(block_rlp_formatted.values)
 
 print(block_rlp_len_bytes)
 print(block_rlp_len)
-print(block_rlp_formatted)
+print(block_rlp_formatted.values)
 
 
 
