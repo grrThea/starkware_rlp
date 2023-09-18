@@ -12,10 +12,11 @@ func extract_data{range_check_ptr}(start_pos: felt, size: felt, rlp: IntsSequenc
     res: IntsSequence
 ) {
     alloc_locals;
-    let rlp_print = rlp;
+    local rlp_print: IntsSequence;
     %{ 
         print("rlp");
-        print(rlp);
+        ids.rlp_print = rlp;
+        print(ids.rlp_print);
     %}
     let (start_word, left_shift) = unsigned_div_rem(start_pos, 8);
     let (end_word_tmp, end_pos_tmp) = unsigned_div_rem(start_pos + size, 8);
